@@ -5,82 +5,39 @@ output: html_document
 
 ### Introduction
 
-An introduction of the data and a description of the trends/books/items you are choosing to analyze (and why!)
+The data analyzed here provides great insight into checkouts from the Seattle Public
+Library from 2017 to January of 2023. As a kid I checked out many stories from my hometown library. I particularly loved listening to audiobooks on long car rides and on days with little to do to fill my time. I did not have access to ebooks or digital audiobooks from the library until I was older, and the audiobooks I listened to were on DVD and sometimes still referred to as 'books on tape'. Now, with access to the expansive SPL data, I seek to find out how library checkouts of newer, digital audiobooks and digitally-formatted books in general have evolved since I was a kid. I also want to examine the connection between checkouts and time of year, since I always wanted to know if people really do read more in the Summer, as library posters I saw growing up always encouraged.
 
 ### Summary Information
 
-Write a summary paragraph of findings that includes the 5 values calculated from your summary information R script
+```{r, echo = FALSE, warning = FALSE, message = FALSE, code = readLines("summary.R")}
+```
 
-These will likely be calculated using your DPLYR skills, answering questions such as:
-
-- What is the average number of checkouts for each item?
-- What is the month or year with the most/least checkouts for a book that you're interested in?
-- What is the month or year with the most/least checkouts for ebooks?
-- How has the number of print book checkouts changed over time?
-
-Feel free to calculate and report values that you find relevant.
+The most dramatic results I found were calculated during my analysis of physical and digital book formats over time. When I compared the total number of yearly checkouts of physical books compared to the total number of yearly checkouts of digitally formatted books (defined as ebooks and digital audiobooks), the impact of COVID-19 was very evident. When analyzing the first three years graphed in my first chart, one can see the popularity of physical book checkouts beginning to decline while digital checkouts increase steadily. However, the year 2020 disrupts these trends. The difference between physical and digital checkouts in 2019 was `r physical_digital_diff_pre_covid` with physical checkouts in the lead. This difference changed to `r physical_digital_diff_covid` by 2020, seeing physical checkouts drop drastically below that of digital ones. Total yearly checkouts saw in increase of `r change_in_digital` in 2020 from the year prior while physical checkouts declined by a whopping `r change_in_physical`. When comparing the total yearly checkouts of written books (defined as physical books and ebooks) with that of audiobooks, the impact of COVID-19 is also evident when it comes to written checkouts. Since audiobooks in this dataset only include digital ones, this trend is not impacted by the pandemic. The lead that written material has over audio-narrated books declines during 2020 by `r written_lost_lead`. However, written material resumes its upward trend in 2021. Through my analysis I found that there is only a minuscule difference in average SPL checkout trends during the Summer compared to the rest of the year. There is a slight increase in audiobook checkouts during the Summer, which, if significant enough, would confirm my hypothesis that more freedom especially for students leads to more checkouts. Perhaps people also like to listen to books outside during the Summer where sunlight glare makes it difficult to look at a screen. However, I was surprised to see only the tiniest of increases in average checkouts of physical books and ebooks over the Summer. I always assumed that pleasant weather to read in would result in a greater number of checkouts, but this data appears to show an insignificant increase.
 
 ### The Dataset
 
-- Who collected/published the data?  
-- What are the parameters of the data (dates, number of checkouts, kinds of books, etc.)?
-- How was the data collected or generated?  
-- Why was the data collected?  
-- What, if any, ethical questions do you need to consider when working with this data?  
-- What are possible limitations or problems with this data?   (at least 200 words)
-
+The Seattle Public Library collected and published this data. It includes each title that was checked out at least 10 times in a month. Recorded is the month and year of checkout, number of checkouts in that month, title, subject material, author, publisher, year of publication, ISBN number, format, and checkout method. This subset of the data was collected from a combination of various digital library systems (Overdrive, hoopla, Freegal, and RBDigital) and the Horizon IPL. This data was collected as a part of a greater initiative by the city of Seattle to provide community data to citizens and to promote new financial and research opportunities. One ethical dilemma presented by this data is the subject of library patrons' checkout privacy. What could the consequences of collecting data on the consumption of free information be? Could this data be used to defend the censorship of free knowledge? One issue with this data is that it is collected monthly over a period of decades and this makes it more difficult to graph trends over time in R. Another issue is a lack of continuity in how the same piece of media's title is formatted throughout the data set. Another limitation I noticed in particular during my work with this data is the fact that it only digital audiobooks are labeled as audiobooks, and that audiobooks on disc or cassette are very difficult to distinguish from the many other forms of media on disc or cassette.
 
 ### First Trends Over Time Chart
 
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
+I wanted to analyze how the popularity of physical books vs. digitally-formatted books has changed over time. A normal pattern of slightly decreasing physical checkouts and increasing digital ones began to emerge. However, the pandemic disrupts these patterns, greatly decreasing the number of physical checkouts and possibly contributing to the growth of digital ones.
 
-The first chart that you will create and include will show the trend over time of your variable/topic/interest. Think carefully about what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
-
-- Show more than one, but fewer than ~10 trends
-  - For example, two books, or 5 different mediums
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- You need a legend for your different line colors and a clear - legend title
-In your .Rmd file, make sure to describe why you included the chart, and what patterns emerged
-
-When we say "clear" or "human readable" titles and labels, that means that you should not just display the variable name.
-
-Here's an example of how to run an R script inside an RMarkdown file:
-
-``````{r, echo = FALSE, warning = FALSE, code = readLines("chart1_example.R")}
+```{r, echo = FALSE, warning = FALSE, message = FALSE, code = readLines("chart1.R")}
 ```
 
 ### Second Trends Over Time Chart
 
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
+Here I sought to analyze the popularity of written books compared to audiobooks over time. While the total checkouts for audiobooks remains considerably lower than that of books and ebooks, this may be slightly impacted by the exclusion of disc and cassette audiobooks. The dip in book checkouts due to the pandemic is also clearly visible in this chart. excludeing this phenomena, both audiobook and written book checkouts seem to be increasing at a similar rate.
 
-The second chart that you will create and include will show another trend over time of your variable/topic/interest. Think carefully about what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
-
-- Show more than one, but fewer than ~10 trends
-  - For example, two books, or 5 different mediums
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- You need a legend for your different line colors and a clear - legend title
-In your .Rmd file, make sure to describe why you included the chart, and what patterns emerged
-
-When we say "clear" or "human readable" titles and labels, that means that you should not just display the variable name.
-
-Here's an example of how to run an R script inside an RMarkdown file:
-
-``````{r, echo = FALSE, code = readLines("chart2_example.R")}
+```{r, echo = FALSE, warning = FALSE, message = FALSE, code = readLines("chart2.R")}
 ```
 
 ### Your Choice
 
-The last chart is up to you. It could be a line plot, scatter plot, histogram, bar plot, stacked bar plot, and more. Here are some requirements to help guide your design:
+For this chart, I wanted to examine any difference between average checkouts during the Summer compared to the rest of the year. The true difference appears to be very minimal and only significant when it comes to audiobooks.
 
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- You need a legend for your different line colors and a clear legend title
-
-Here's an example of how to run an R script inside an RMarkdown file:
-
-``````{r, echo = FALSE, code = readLines("chart2_example.R")}
+```{r, echo = FALSE, warning = FALSE, message = FALSE, code = readLines("chart3.R")}
 ```
 
 
